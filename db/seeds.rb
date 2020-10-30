@@ -13,11 +13,10 @@ end
 #in order, destroy all records, removing records from tables with FKs first
 def destroy_all_tables
   [
-    GameQuestion,
+    UserQuestion,
     Answer,
-    GameQuestion,
+    Score,
     Question,
-    Game,
     User
   ].each{|table| table.destroy_all}
 end

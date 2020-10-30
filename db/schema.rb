@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_30_192437) do
+ActiveRecord::Schema.define(version: 2020_10_30_222452) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,27 +24,28 @@ ActiveRecord::Schema.define(version: 2020_10_30_192437) do
     t.index ["question_id"], name: "index_answers_on_question_id"
   end
 
-  create_table "game_questions", force: :cascade do |t|
-    t.integer "status"
-    t.bigint "game_id", null: false
-    t.bigint "question_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["game_id"], name: "index_game_questions_on_game_id"
-    t.index ["question_id"], name: "index_game_questions_on_question_id"
-  end
-
-  create_table "games", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_games_on_user_id"
-  end
-
   create_table "questions", force: :cascade do |t|
     t.string "body"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "scores", force: :cascade do |t|
+    t.decimal "value"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_scores_on_user_id"
+  end
+
+  create_table "user_questions", force: :cascade do |t|
+    t.integer "status"
+    t.bigint "user_id", null: false
+    t.bigint "question_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["question_id"], name: "index_user_questions_on_question_id"
+    t.index ["user_id"], name: "index_user_questions_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -54,7 +55,7 @@ ActiveRecord::Schema.define(version: 2020_10_30_192437) do
   end
 
   add_foreign_key "answers", "questions"
-  add_foreign_key "game_questions", "games"
-  add_foreign_key "game_questions", "questions"
-  add_foreign_key "games", "users"
+  add_foreign_key "scores", "users"
+  add_foreign_key "user_questions", "questions"
+  add_foreign_key "user_questions", "users"
 end

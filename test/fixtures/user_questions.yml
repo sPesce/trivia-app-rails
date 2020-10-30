@@ -2,10 +2,10 @@
 
 one:
   status: 1
-  game: one
+  user: one
   question: one
 
 two:
   status: 1
-  game: two
+  user: two
   question: two
